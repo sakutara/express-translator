@@ -1,0 +1,24 @@
+{
+  "name": "express-translator",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "translate",
+    "translator",
+    "express",
+    "gettext-parser",
+    "node-gettext"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.5.0"
+  },
+  "dependencies": {
+    "gettext-parser": "^3.1.1"
+  }
+}
