@@ -1,3 +1,15 @@
 // index.js
 
-// Make sure server translator and client translator is connected.
+const Translate = function(translationSet = {}) {
+  this.translate = () => {
+
+  };
+
+  this.getTranslationSet = () => {
+    return translationSet;
+  };
+
+  return this;
+};
+
+exports = module.exports = Translate;
