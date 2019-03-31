@@ -1,16 +1,17 @@
 // index.js
 
 const Translate = function(set = {}) {
-  this.translate = () => {
-
+  this.translate = (source) => {
+    console.log(source);
+    return 'bar';
   };
 
   this.getSet = () => {
     return set;
   };
 
-  this.updateSet = (set = undefined) => {
-
+  this.updateSet = (update = undefined) => {
+    set = update;
   };
 
   return this;
