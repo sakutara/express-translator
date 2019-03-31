@@ -1,12 +1,16 @@
 // index.js
 
-const Translate = function(translationSet = {}) {
+const Translate = function(set = {}) {
   this.translate = () => {
 
   };
 
-  this.getTranslationSet = () => {
-    return translationSet;
+  this.getSet = () => {
+    return set;
+  };
+
+  this.updateSet = (set = undefined) => {
+
   };
 
   return this;

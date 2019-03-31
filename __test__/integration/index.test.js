@@ -7,12 +7,12 @@ describe('Index test', function() {
       expect(typeof translator.translate).toEqual('function');
     });
 
-    test('Should have getTranslationSet function', () => {
-      expect(typeof translator.getTranslationSet).toEqual('function');
+    test('Should have getSet function', () => {
+      expect(typeof translator.getSet).toEqual('function');
     });
 
     describe('Translation Set', function() {
-      const exampleTranslationSet = {
+      const exampleSet = {
         'translations': {
           '': {
             'foo': {
@@ -23,16 +23,16 @@ describe('Index test', function() {
         },
       };
       beforeAll(() => {
-        this.translator = require('../../index')(exampleTranslationSet);
-        this.translationSet = this.translator.getTranslationSet();
+        this.translator = require('../../index')(exampleSet);
+        this.set = this.translator.getSet();
       });
 
       test('Should have been given at startup', () => {
-        expect(this.translationSet).toEqual(exampleTranslationSet);
+        expect(this.set).toEqual(exampleSet);
       });
 
-      test('Should be an object', () => {
-        expect(typeof this.translationSet).toEqual('object');
+      test('Should be able to update', () => {
+        expect(typeof this.translator.updateSet).toEqual('function');
       });
     });
   });
