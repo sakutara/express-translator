@@ -1,8 +1,8 @@
-describe('Index test', function() {
+describe('Integration test', function() {
   const exampleSet = {
     'translations': {
       '': {
-        'foo': {
+        foo: {
           msgid: 'foo',
           msgstr: ['bar'],
         },
@@ -14,7 +14,7 @@ describe('Index test', function() {
   describe('Translator', function() {
     describe('Translation Set', function() {
       beforeAll(() => {
-        this.translator = require('../../index')(exampleSet);
+        this.translator = require('../../index')({library: exampleSet});
       });
 
       test('Should have been given at startup', () => {
