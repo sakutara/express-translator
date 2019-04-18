@@ -7,29 +7,30 @@ describe('Integration test', function() {
           msgstr: ['bar'],
         },
       },
+      custom: {
+        foo: {
+          msgid: 'foo',
+          msgstr: ['toi'],
+        },
+      },
     },
   };
 
   // Should have client methods.
   describe('Translator', function() {
-    describe('Translation Set', function() {
-      beforeAll(() => {
-        this.translator = require('../../index')({library: exampleSet});
-      });
-
-      test('Should have been given at startup', () => {
-        expect(this.translator.getSet()).toEqual(exampleSet);
-      });
-    });
-
     describe('Translation function', function() {
-      this.translator = require('../../index')(exampleSet);
+      this.translator = require('../../index')({library: exampleSet});
       test('Should have translate function', () => {
         expect(typeof this.translator.translate).toEqual('function');
       });
 
-      test('Should translate', () => {
+      test('Should translate using default context', () => {
         expect(this.translator.translate('foo')).toBe('bar');
+      });
+
+      test('Should translate using custom context', () => {
+        expect(this.translator.translate('foo', {context: 'custom'})).
+            toBe('toi');
       });
     });
   });
