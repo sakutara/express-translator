@@ -20,21 +20,6 @@ describe('Integration test', function() {
       test('Should have been given at startup', () => {
         expect(this.translator.getSet()).toEqual(exampleSet);
       });
-
-      test('Should show new set after update', () => {
-        const updateSet = {
-          'translations': {
-            '': {
-              'foo': {
-                msgid: 'foo',
-                msgstr: ['toi'],
-              },
-            },
-          },
-        };
-        this.translator.updateSet(updateSet);
-        expect(this.translator.getSet()).toEqual(updateSet);
-      });
     });
 
     describe('Translation function', function() {

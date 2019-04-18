@@ -13,10 +13,6 @@ const Translate = function({library = {}, country = 'US', language = 'en', name 
     return library;
   };
 
-  this.updateSet = (update = undefined) => {
-    library = update;
-  };
-
   return this;
 };
 

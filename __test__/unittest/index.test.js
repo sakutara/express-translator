@@ -1,4 +1,4 @@
-describe('Unittest', function() {
+describe('Unit test', function() {
   const exampleSet = {
     'translations': {
       '': {
@@ -9,6 +9,7 @@ describe('Unittest', function() {
       },
     },
   };
+
   describe('Using Node-gettext', function() {
     beforeAll(() => {
       this.Gettext = require('node-gettext');
@@ -36,7 +37,7 @@ describe('Unittest', function() {
     test('Should use setLocale', () => {
       expect(this.gt.setLocale).toBeCalledTimes(1);
       expect(this.gt.setLocale).toBeCalledWith('en-US');
-    })
+    });
 
     test('Should use gettext to translate', () => {
       this.translator.translate('foo');
