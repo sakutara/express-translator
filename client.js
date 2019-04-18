@@ -6,7 +6,7 @@
 
 const Gettext = require('node-gettext');
 
-const Translate = function({library = {}, country = 'US', language = 'en', domain = 'default'}) {
+const Client = function({library = {}, country = 'US', language = 'en', domain = 'default'}) {
   /* Setup. */
   const translator = new Gettext();
   translator.addTranslations(`${language}-${country}`, domain, library);
@@ -30,4 +30,4 @@ const Translate = function({library = {}, country = 'US', language = 'en', domai
   return this;
 };
 
-exports = module.exports = Translate;
+exports = module.exports = Client;
