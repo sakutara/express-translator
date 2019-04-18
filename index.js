@@ -8,11 +8,17 @@ const Translate = function({library = {}, country = 'US', language = 'en', domai
   translator.setLocale(`${language}-${country}`);
   translator.setTextDomain(domain);
 
-  this.translate = (source, {context = ''} = {}) => {
-    const translated = context ?
+  this.translate = (source, {context = '', params = {}} = {}) => {
+    // Translate string.
+    let translated = context ?
         translator.pgettext(context, source) :
         translator.gettext(source);
-    console.log(translated);
+
+    // Apply dynamical content to string.
+    Object.entries(params).forEach(([key, value]) => {
+      translated = translated.replace(new RegExp(key, 'g'), value);
+    });
+
     return translated;
   };
 
