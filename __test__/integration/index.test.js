@@ -4,7 +4,7 @@ describe('Integration test', function() {
   // Should have client methods.
   describe('Translator', function() {
     describe('Translation function', function() {
-      const {translate, pTranslate} = require('../../index')(
+      const {translate} = require('../../index')(
           {library: exampleSet});
 
       test('Should have translate function', () => {
