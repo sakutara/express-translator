@@ -9,8 +9,6 @@ describe('Unit test', function() {
         {library: exampleSet});
     const {addTranslations, setLocale, setTextDomain, gettext, pgettext} = Gettext.mock.instances[0];
     gettext.mockReturnValue('bar');
-    pgettext.mockReturnValue('bar');
-    pgettext.mockReturnValue('bar');
 
     afterAll(() => {
       Gettext.mockRestore();
