@@ -1,59 +1,50 @@
 describe('Unit test', function() {
-  const exampleSet = {
-    'translations': {
-      '': {
-        'foo': {
-          msgid: 'foo',
-          msgstr: ['bar'],
-        },
-      },
-    },
-  };
+  const exampleSet = require('../__dump__/exampleSet');
 
   describe('Using Node-gettext', function() {
-    beforeAll(() => {
-      this.Gettext = require('node-gettext');
-      jest.mock('node-gettext');
-      this.translator = require('../../index')({
-        library: exampleSet,
-      });
-      this.gt = this.Gettext.mock.instances[0];
-    });
+    // Before all.
+    const Gettext = require('node-gettext');
+    jest.mock('node-gettext');
+    const {translate, nTranslate} = require('../../index')(
+        {library: exampleSet});
+    const {addTranslations, setLocale, setTextDomain, gettext, pgettext, ngettext} = Gettext.mock.instances[0];
+    gettext.mockReturnValue('bar');
+    pgettext.mockReturnValue('bar');
+    pgettext.mockReturnValue('bar');
 
     afterAll(() => {
-      this.Gettext.mockRestore();
+      Gettext.mockRestore();
     });
 
     test('Should use node-gettext to translate', () => {
-      expect(this.Gettext).toBeCalled();
+      expect(Gettext).toBeCalled();
     });
 
     test('Should use addTranslations', () => {
-      expect(this.gt.addTranslations).toBeCalledTimes(1);
-      expect(this.gt.addTranslations).
-          toBeCalledWith('en-US', 'default', exampleSet);
+      expect(addTranslations).toBeCalledTimes(1);
+      expect(addTranslations).toBeCalledWith('en-US', 'default', exampleSet);
     });
 
     test('Should use setLocale', () => {
-      expect(this.gt.setLocale).toBeCalledTimes(1);
-      expect(this.gt.setLocale).toBeCalledWith('en-US');
+      expect(setLocale).toBeCalledTimes(1);
+      expect(setLocale).toBeCalledWith('en-US');
     });
 
     test('Should use setTextDomain', () => {
-      expect(this.gt.setTextDomain).toBeCalledTimes(1);
-      expect(this.gt.setTextDomain).toBeCalledWith('default');
+      expect(setTextDomain).toBeCalledTimes(1);
+      expect(setTextDomain).toBeCalledWith('default');
     });
 
     test('Should use gettext to translate', () => {
-      this.translator.translate('foo');
-      expect(this.gt.gettext).toBeCalledTimes(1);
-      expect(this.gt.gettext).toBeCalledWith('foo');
+      translate('foo');
+      expect(gettext).toBeCalledTimes(1);
+      expect(gettext).toBeCalledWith('foo');
     });
 
     test('Should use pgettext to translate with context', () => {
-      this.translator.translate('foo', {context: 'custom'});
-      expect(this.gt.pgettext).toBeCalledTimes(1);
-      expect(this.gt.pgettext).toBeCalledWith('custom', 'foo');
+      translate('foo', {context: 'custom'});
+      expect(pgettext).toBeCalledTimes(1);
+      expect(pgettext).toBeCalledWith('custom', 'foo');
     });
   });
 });
