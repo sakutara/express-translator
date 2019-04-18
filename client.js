@@ -1,4 +1,9 @@
-// index.js
+/**
+ * @fileoverview Translation object to control client-side of translation.
+ * @package
+ * node-gettext
+ */
+
 const Gettext = require('node-gettext');
 
 const Translate = function({library = {}, country = 'US', language = 'en', domain = 'default'}) {

@@ -2,7 +2,7 @@
   "name": "express-translator",
   "version": "0.1.2",
   "description": "",
-  "main": "index.js",
+  "main": "client.js",
   "scripts": {
     "test": "jest"
   },

@@ -5,7 +5,7 @@ describe('Unit test', function() {
     // Before all.
     const Gettext = require('node-gettext');
     jest.mock('node-gettext');
-    const {translate} = require('../../index')(
+    const {translate} = require('../../client')(
         {library: exampleSet});
     const {addTranslations, setLocale, setTextDomain, gettext, pgettext} = Gettext.mock.instances[0];
     gettext.mockReturnValue('bar');
