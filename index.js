@@ -1,18 +1,10 @@
 // index.js
 const Gettext = require('node-gettext');
 
-const Translate = function(...kwargs) {
+const Translate = function({library = {}, country = 'US', language = 'en', name = 'default'}) {
   /* Setup. */
-  // Update default parameters.
-  const params = Object.assign({
-    set: {},
-    country: 'US',
-    language: 'en',
-    name: 'default',
-  }, kwargs);
-
   const translator = new Gettext();
-  translator.addTranslations(`${params.country}-${params.language}`, params.name, params.set);
+  translator.addTranslations(`${language}-${country}`, name, library);
 
   this.translate = (source) => {
 
