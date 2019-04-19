@@ -8,26 +8,32 @@ describe('Integration test', function() {
       const Translator = require('../../client');
 
       // Default translator.
-      const {translate } = new Translator({library: exampleSet});
+      const {translate} = new Translator({library: exampleSet});
 
       describe('Multiple domains', function() {
 
         // Second domain.
         const {translate: domainTranslate} = new Translator(
             {domain: 'custom', library: updateSet});
-        expect(domainTranslate('foo')).not.toEqual(translate('foo'));
+        test('Should support multiple domains', () => {
+          expect(domainTranslate('foo')).not.toEqual(translate('foo'));
+        });
       });
 
       describe('Multiple languages', function() {
         const {translate: regionTranslate} = new Translator(
             {language: 'vi', library: updateSet});
-        expect(regionTranslate('foo')).not.toEqual(translate('foo'));
+        test('Should support multiple languages', () => {
+          expect(regionTranslate('foo')).not.toEqual(translate('foo'));
+        });
       });
 
       describe('Multiple countries', function() {
         const {translate: countryTranslate} = new Translator(
             {country: 'VN', library: updateSet});
-        expect(countryTranslate('foo')).not.toEqual(translate('foo'));
+        test('Should support multiple countries', () => {
+          expect(countryTranslate('foo')).not.toEqual(translate('foo'));
+        });
       });
     });
 
