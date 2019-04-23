@@ -3,11 +3,11 @@
  * @package
  *
  */
-const { readFileSync } = require('fs');
+const {readFileSync} = require('fs');
 const {po: {parse}} = require('gettext-parser');
-const { join } = require('path');
+const {join} = require('path');
 
-const Server = function({locale='en_US', src='locale'} = {}) {
+const Server = function({locale = 'en_US', src = 'locale'} = {}) {
   const data = readFileSync(join(process.cwd(), src, `${locale}.po`));
   const translationSet = parse(data);
 
