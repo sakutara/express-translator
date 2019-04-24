@@ -16,9 +16,11 @@
   "author": "Sakutara",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^24.5.0"
+    "jest": "^24.5.0",
+    "request": "latest"
   },
   "dependencies": {
+    "express": "^4.16.4",
     "gettext-parser": "^4.0.0",
     "node-gettext": "^2.0.0"
   }
