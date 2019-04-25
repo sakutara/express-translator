@@ -12,34 +12,40 @@ describe('Unit test', function() {
   readFileSync.mockReturnValue(examplePo);
   const express = require('express');
   jest.mock('express');
+  express.mockReturnValue({get: () => {}});
   const callback = jest.fn();
-  express.mockReturnValue({get: callback});
+
+  afterEach(() => {
+    express.mockClear();
+    callback.mockClear();
+  });
 
   describe('Using Gettext-Parser', function() {
-    const {getSet} = new Server();
+    new Server();
 
     test('Should load po data using readFileSync', () => {
-      expect(readFileSync).toBeCalledTimes(2);
+      expect(readFileSync).toBeCalledTimes(1);
       expect(readFileSync).toBeCalledWith(`${process.cwd()}/locale/en_US.po`);
-      readFileSync.mockRestore();
     });
 
     test('Should use gettext-parser in constructing Server', () => {
-      expect(parse).toBeCalledTimes(2);
+      expect(parse).toBeCalledTimes(1);
       expect(parse).toBeCalledWith(examplePo);
     });
   });
 
   describe('Register in Express', function() {
-
-    const {getSet} = new Server({src: '__test__/__dump__'});
+    beforeEach(() => {
+      express.mockReturnValue({get: callback});
+      new Server({src: '__test__/__dump__'});
+    });
 
     test('Should use Express', () => {
-      expect(express).toBeCalledTimes(2);
+      expect(express).toBeCalledTimes(1);
     });
 
     test('Should register /translate in express', () => {
-      expect(callback).toBeCalledTimes(2);
+      expect(callback).toBeCalledTimes(1);
     });
   });
 });
