@@ -37,7 +37,7 @@ describe('Integration test', function() {
   });
 
   describe('Express support', function() {
-    const request = require('request');
+    const fetch = require('node-fetch');
     const express = require('express');
     // Express app.
     const app = express();
@@ -48,23 +48,20 @@ describe('Integration test', function() {
       this.server.close();
     });
 
-    test('Should have translate URL', done => {
+    test('Should have translate URL', async() => {
       const {getSet} = new Server({app, src: '__test__/__dump__'});
 
-      request('http://localhost:9999/translate', (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        validate(JSON.parse(body));
-        done();
-      });
+
+      const res = await fetch('http://localhost:9999/translate');
+      expect(res.ok).toBeTruthy();
+      validate(await res.json());
     });
 
-    test('Should be able to customize translate URL', done => {
+    test('Should be able to customize translate URL', async() => {
       const {getSet} = new Server({app, url: '/custom/translate', src: '__test__/__dump__'});
-      request('http://localhost:9999/custom/translate', (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        validate(JSON.parse(body));
-        done();
-      });
+      const res = await fetch('http://localhost:9999/custom/translate');
+      expect(res.ok).toBeTruthy();
+      validate(await res.json());
     });
   });
 });
