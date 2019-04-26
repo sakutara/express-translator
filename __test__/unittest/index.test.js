@@ -1,48 +1,29 @@
 describe('Unit test', function() {
   const exampleSet = require('../__dump__/exampleSet');
+  describe('Construction', function() {
+    // Mocking Express.
+    const express = require('express');
+    jest.mock('express');
+    const callback = jest.fn();
+    express.mockReturnValue({get: callback});
+    const app = express();
 
-  describe('Using Node-gettext', function() {
-    // Before all.
-    const Gettext = require('node-gettext');
-    jest.mock('node-gettext');
-    const {translate} = require('../../index')(
-        {library: exampleSet});
-    const {addTranslations, setLocale, setTextDomain, gettext, pgettext} = Gettext.mock.instances[0];
-    gettext.mockReturnValue('bar');
+    // Mocking Server.
+    const Server = require('../../server');
+    Server.constructor = jest.fn(() => ({}));
 
-    afterAll(() => {
-      Gettext.mockRestore();
+    // Mocking Client.
+    const Client = jest.genMockFromModule('../../client');
+
+    afterEach(() => {
+      express.mockClear();
+      callback.mockClear();
     });
 
-    test('Should use node-gettext to translate', () => {
-      expect(Gettext).toBeCalled();
-    });
+    const Translator = require('../../index');
 
-    test('Should use addTranslations', () => {
-      expect(addTranslations).toBeCalledTimes(1);
-      expect(addTranslations).toBeCalledWith('en-US', 'default', exampleSet);
-    });
-
-    test('Should use setLocale', () => {
-      expect(setLocale).toBeCalledTimes(1);
-      expect(setLocale).toBeCalledWith('en-US');
-    });
-
-    test('Should use setTextDomain', () => {
-      expect(setTextDomain).toBeCalledTimes(1);
-      expect(setTextDomain).toBeCalledWith('default');
-    });
-
-    test('Should use gettext to translate', () => {
-      translate('foo');
-      expect(gettext).toBeCalledTimes(1);
-      expect(gettext).toBeCalledWith('foo');
-    });
-
-    test('Should use pgettext to translate with context', () => {
-      translate('foo', {context: 'custom'});
-      expect(pgettext).toBeCalledTimes(1);
-      expect(pgettext).toBeCalledWith('custom', 'foo');
+    test('Should return an async function', async () => {
+      expect(Translator.constructor.name).toBe('AsyncFunction');
     });
   });
 });

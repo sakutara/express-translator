@@ -3,61 +3,52 @@ describe('Integration test', function() {
   const updateSet = require('../__dump__/updateSet');
 
   // Should have client methods.
-  describe('Translator', function() {
-    describe('Construction', function() {
-      const Translator = require('../../client');
+  describe('Construction', function() {
+    const Client = require('../../client');
 
-      // Default translator.
-      const {translate} = new Translator({library: exampleSet});
+    // Default translator.
+    const {translate} = new Client({library: exampleSet});
 
-      describe('Multiple domains', function() {
-
-        // Second domain.
-        const {translate: domainTranslate} = new Translator(
-            {domain: 'custom', library: updateSet});
-        test('Should support multiple domains', () => {
-          expect(domainTranslate('foo')).not.toEqual(translate('foo'));
-        });
-      });
-
-      describe('Multiple languages', function() {
-        const {translate: regionTranslate} = new Translator(
-            {language: 'vi', library: updateSet});
-        test('Should support multiple languages', () => {
-          expect(regionTranslate('foo')).not.toEqual(translate('foo'));
-        });
-      });
-
-      describe('Multiple countries', function() {
-        const {translate: countryTranslate} = new Translator(
-            {country: 'VN', library: updateSet});
-        test('Should support multiple countries', () => {
-          expect(countryTranslate('foo')).not.toEqual(translate('foo'));
-        });
-      });
+    test('Should support multiple domains', () => {
+      // Second domain.
+      const {translate: domainTranslate} = new Client(
+          {domain: 'custom', library: updateSet});
+      expect(domainTranslate('foo')).not.toEqual(translate('foo'));
     });
 
-    describe('Translation function', function() {
-      const {translate} = require('../../client')(
-          {library: exampleSet});
+    test('Should support multiple languages', () => {
+      const {translate: regionTranslate} = new Client(
+          {language: 'vi', library: updateSet});
+      expect(regionTranslate('foo')).not.toEqual(translate('foo'));
+    });
 
-      test('Should have translate function', () => {
-        expect(typeof translate).toEqual('function');
-      });
+    test('Should support multiple countries', () => {
+      const {translate: countryTranslate} = new Client(
+          {country: 'VN', library: updateSet});
+      expect(countryTranslate('foo')).not.toEqual(translate('foo'));
+    });
+  });
 
-      test('Should translate using default context', () => {
-        expect(translate('foo')).toBe('bar');
-      });
+  describe('Translation function', function() {
+    const {translate} = require('../../client')(
+        {library: exampleSet});
 
-      test('Should translate using custom context', () => {
-        expect(translate('foo', {context: 'custom'})).
-            toBe('toi');
-      });
+    test('Should have translate function', () => {
+      expect(typeof translate).toEqual('function');
+    });
 
-      test('Should translate using dynamical variables', () => {
-        expect(translate('foo @time times', {params: {'@time': 3}})).
-            toBe('toi 3 bars');
-      });
+    test('Should translate using default context', () => {
+      expect(translate('foo')).toBe('bar');
+    });
+
+    test('Should translate using custom context', () => {
+      expect(translate('foo', {context: 'custom'})).
+          toBe('toi');
+    });
+
+    test('Should translate using dynamical variables', () => {
+      expect(translate('foo @time times', {params: {'@time': 3}})).
+          toBe('toi 3 bars');
     });
   });
 });
