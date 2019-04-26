@@ -412,3 +412,4 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 package-lock.json
+locale
