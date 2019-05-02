@@ -6,19 +6,7 @@
 
 const Gettext = require('node-gettext');
 
-const Client = function({library = {}, server = false, country = 'US', language = 'en', domain = 'default'} = {}) {
-  this.status = false;
-  if (server) {
-    // Fetch data from server.
-    const fetch = require('node-fetch');
-    fetch(server).then(res => {
-      if (res.ok) {
-        library = res.json();
-        this.status = true;
-      }
-    });
-  }
-
+const Client = function({library = {}, country = 'US', language = 'en', domain = 'default'} = {}) {
   /* Setup. */
   const translator = new Gettext();
   translator.addTranslations(`${language}-${country}`, domain, library);
@@ -37,6 +25,10 @@ const Client = function({library = {}, server = false, country = 'US', language 
     });
 
     return translated;
+  };
+
+  this.setLibrary = (library) => {
+    translator.addTranslations(`${language}-${country}`, domain, library);
   };
 
   return this;

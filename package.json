@@ -1,7 +1,7 @@
 {
   "name": "express-translator",
-  "version": "0.3.1",
-  "description": "",
+  "version": "0.3.2",
+  "description": "Translator helper for Express using PO files",
   "main": "index.js",
   "scripts": {
     "test": "jest"
@@ -14,7 +14,7 @@
     "node-gettext"
   ],
   "author": "Sakutara",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "jest": "^24.5.0",
     "request": "latest"
