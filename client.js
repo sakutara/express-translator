@@ -6,12 +6,22 @@
 
 const Gettext = require('node-gettext');
 
-const Client = function({library = {}, country = 'US', language = 'en', domain = 'default'} = {}) {
+const Client = function({library = {}, server = undefined, country = 'US', language = 'en', domain = 'default'} = {}) {
   /* Setup. */
   const translator = new Gettext();
   translator.addTranslations(`${language}-${country}`, domain, library);
   translator.setLocale(`${language}-${country}`);
   translator.setTextDomain(domain);
+
+  if (server) {
+    fetch(server).then(res => {
+      if (res.ok) {
+        res.json().then(library => {
+          this.setLibrary(library);
+        });
+      }
+    });
+  }
 
   this.translate = (source, {context = '', params = {}} = {}) => {
     // Translate string.
@@ -25,6 +35,10 @@ const Client = function({library = {}, country = 'US', language = 'en', domain =
     });
 
     return translated;
+  };
+
+  this.setLibrary = (library) => {
+    translator.addTranslations(`${language}-${country}`, domain, library);
   };
 
   return this;

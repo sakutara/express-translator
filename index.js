@@ -25,7 +25,7 @@ const Index = async function({app = undefined, country = 'US', url, language = '
     }
   }
 
-  const {translate} = new Client({library: library, country, language});
+  const {translate} = await Client({library: library, country, language});
   this.translate = translate;
 
   return this;
