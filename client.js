@@ -5,6 +5,7 @@
  */
 
 const Gettext = require('node-gettext');
+const fetch = require('node-fetch');
 
 const Client = function({library = {}, server = undefined, country = 'US', language = 'en', domain = 'default'} = {}) {
   /* Setup. */

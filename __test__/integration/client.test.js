@@ -27,6 +27,21 @@ describe('Integration test', function() {
           {country: 'VN', library: updateSet});
       expect(countryTranslate('foo')).not.toEqual(translate('foo'));
     });
+
+    test('Should support server side', done => {
+      const express = require('express');
+      const app = express();
+      app.use('/translate', (req, res) => {
+        res.json(exampleSet);
+      });
+      const server = app.listen(9999);
+      const Translator = new Client({server: 'http://localhost:9999/translate'});
+      setTimeout(() => {
+        expect(Translator.translate('foo')).toEqual('bar');
+        server.close();
+        done();
+      }, 100);
+    });
   });
 
   describe('Translation function', function() {
