@@ -16,8 +16,7 @@
   "author": "Sakutara",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^24.5.0",
-    "request": "latest"
+    "jest": "^24.5.0"
   },
   "dependencies": {
     "express": "^4.16.4",
