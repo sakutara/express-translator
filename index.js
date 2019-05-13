@@ -5,27 +5,16 @@
  * Connect Client and Server together.
  */
 
-const Index = async function({app = undefined, country = 'US', url, language = 'en', server = false, src} = {}) {
+const Index = function({app = undefined, country = 'US', url, language = 'en', src} = {}) {
   const Client = require('./client');
-  this.status = false;
+  const Server = require('./server');
+  const {getSet} = new Server(
+      {app, src, url, locale: `${language}_${country}`});
+  const library = getSet();
 
-  let library = {};
-  if (!server) {
-    const Server = require('./server');
-    const {getSet} = new Server({app, src, url, locale: `${language}_${country}`});
-    library = getSet();
-    this.status = true;
-  }
-  else {
-    const fetch = require('node-fetch');
-    const res = await fetch(server);
-    if (res.ok) {
-      library = await res.json();
-      this.status = true;
-    }
-  }
-
-  const {translate} = new Client({library: library, country, language});
+  // Since we're not passing a server URL.
+  // There's no asynchronous in calling Client.
+  const {translate} = Client({library: library, country, language});
   this.translate = translate;
 
   return this;

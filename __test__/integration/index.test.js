@@ -26,8 +26,8 @@ describe('Integration test', function() {
       this.server = this.app.listen(9999);
     });
 
-    afterEach(() => {
-      this.server.close();
+    afterEach(done => {
+      this.server.close(done);
     });
 
     test('Should be able to have a custom url for client side', async () => {

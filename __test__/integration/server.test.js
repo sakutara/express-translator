@@ -30,8 +30,8 @@ describe('Integration test', function() {
     const {getSet} = new Server({src: '__test__/__dump__'});
     const translationSet = getSet();
 
-    test('Translation set should be applicable for client side', () => {
-      const {translate} = require('../../client')({library: translationSet});
+    test('Translation set should be applicable for client side', async () => {
+      const {translate} = await require('../../client')({library: translationSet});
       expect(translate('foo')).toBe('bar');
     });
   });
